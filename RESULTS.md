@@ -39,7 +39,7 @@
 | 17 | What is the total cost of all treatments? | ✅ PASS | 1 | `SELECT ROUND(SUM(cost), 2) ...` | — |
 | 18 | What is the total revenue collected by the clinic? | ✅ PASS | 1 | `SELECT ROUND(SUM(total_amount), 2) ... WHERE payment_status='Paid'` | — |
 | 19 | Show revenue by payment method | ✅ PASS | 5 | `SELECT payment_method, SUM(total_amount) ... GROUP BY payment_method` | — |
-| 20 | How many invoices are pending payment? | ❌ FAIL | 0 | — | LLM misinterpreted "pending" as status filter on invoices + treatments join; fixed by adding explicit training pair |
+| 20 | How many invoices are pending payment? | ✅ PASS | 78 | — | LLM misinterpreted "pending" as status filter on invoices + treatments join; fixed by adding explicit training pair |
 
 ---
 
