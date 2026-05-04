@@ -470,9 +470,10 @@ This project showcases:
 
 ## 📬 Contact
 **PAVAN AHIRE**
-
-Feel free to connect or review the project.
+- GitHub: https://github.com/pavan-ahire
+- LinkedIn: https://www.linkedin.com/in/pavan-ahire-260940364/
 
 ---
+Feel free to connect or review the project.
 
 ⭐ If you found this useful, give it a star!
