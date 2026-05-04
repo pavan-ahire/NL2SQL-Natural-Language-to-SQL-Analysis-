@@ -1,0 +1,182 @@
+[
+  {
+    "no": 1,
+    "question": "How many patients are registered in the clinic?",
+    "status": "PASS",
+    "sql": "SELECT COUNT(*) AS total_patients FROM patients;",
+    "rows": 1,
+    "time_s": 6.34,
+    "error": ""
+  },
+  {
+    "no": 2,
+    "question": "List all patients from Mumbai",
+    "status": "PASS",
+    "sql": "SELECT name, phone, email FROM patients WHERE city = 'Mumbai' ORDER BY name;",
+    "rows": 9,
+    "time_s": 3.05,
+    "error": ""
+  },
+  {
+    "no": 3,
+    "question": "Show patients with blood group O+",
+    "status": "PASS",
+    "sql": "SELECT name, dob, gender, city FROM patients WHERE blood_group = 'O+' ORDER BY name;",
+    "rows": 29,
+    "time_s": 3.04,
+    "error": ""
+  },
+  {
+    "no": 4,
+    "question": "How many male and female patients are there?",
+    "status": "PASS",
+    "sql": "SELECT gender, COUNT(*) AS count\nFROM patients\nGROUP BY gender\nORDER BY count DESC;",
+    "rows": 3,
+    "time_s": 3.01,
+    "error": ""
+  },
+  {
+    "no": 5,
+    "question": "Which city has the most patients?",
+    "status": "PASS",
+    "sql": "SELECT city, COUNT(*) AS patient_count\nFROM patients\nGROUP BY city\nORDER BY patient_count DESC\nLIMIT 1;",
+    "rows": 1,
+    "time_s": 3.13,
+    "error": ""
+  },
+  {
+    "no": 6,
+    "question": "How many doctors are in each department?",
+    "status": "PASS",
+    "sql": "SELECT department, COUNT(*) AS doctor_count\nFROM doctors\nGROUP BY department\nORDER BY doctor_count DESC;",
+    "rows": 15,
+    "time_s": 3.08,
+    "error": ""
+  },
+  {
+    "no": 7,
+    "question": "Which doctor has the highest consultation fee?",
+    "status": "PASS",
+    "sql": "SELECT name, specialization, consultation_fee\nFROM doctors\nORDER BY consultation_fee DESC\nLIMIT 1;",
+    "rows": 1,
+    "time_s": 3.02,
+    "error": ""
+  },
+  {
+    "no": 8,
+    "question": "List all cardiologists",
+    "status": "PASS",
+    "sql": "SELECT name, experience_yrs, consultation_fee FROM doctors WHERE specialization = 'Cardiologist' ORDER BY experience_yrs DESC;",
+    "rows": 1,
+    "time_s": 3.0,
+    "error": ""
+  },
+  {
+    "no": 9,
+    "question": "Show doctors with more than 10 years of experience",
+    "status": "PASS",
+    "sql": "SELECT name, specialization, experience_yrs\nFROM doctors\nWHERE experience_yrs > 10\nORDER BY experience_yrs DESC;",
+    "rows": 12,
+    "time_s": 3.05,
+    "error": ""
+  },
+  {
+    "no": 10,
+    "question": "What is the average consultation fee?",
+    "status": "PASS",
+    "sql": "SELECT ROUND(AVG(consultation_fee), 2) AS avg_fee FROM doctors;",
+    "rows": 1,
+    "time_s": 3.07,
+    "error": ""
+  },
+  {
+    "no": 11,
+    "question": "How many appointments were completed?",
+    "status": "PASS",
+    "sql": "SELECT COUNT(*) AS completed FROM appointments WHERE status = 'Completed';",
+    "rows": 1,
+    "time_s": 3.04,
+    "error": ""
+  },
+  {
+    "no": 12,
+    "question": "Show appointment count by status",
+    "status": "PASS",
+    "sql": "SELECT status, COUNT(*) AS count\nFROM appointments\nGROUP BY status\nORDER BY count DESC;",
+    "rows": 4,
+    "time_s": 3.09,
+    "error": ""
+  },
+  {
+    "no": 13,
+    "question": "Which doctor has the most appointments?",
+    "status": "PASS",
+    "sql": "SELECT d.name, COUNT(a.appointment_id) AS total_appointments\nFROM appointments a\nJOIN doctors d ON a.doctor_id = d.doctor_id\nGROUP BY d.doctor_id\nORDER BY total_appointments DESC\nLIMIT 1;",
+    "rows": 1,
+    "time_s": 3.13,
+    "error": ""
+  },
+  {
+    "no": 14,
+    "question": "How many appointments were cancelled?",
+    "status": "PASS",
+    "sql": "SELECT COUNT(*) AS cancelled_appointments FROM appointments WHERE status = 'Cancelled';",
+    "rows": 1,
+    "time_s": 3.05,
+    "error": ""
+  },
+  {
+    "no": 15,
+    "question": "List appointments scheduled for 2024",
+    "status": "PASS",
+    "sql": "SELECT a.appointment_id, p.name AS patient, d.name AS doctor, a.appointment_dt, a.status\nFROM appointments a\nJOIN patients p ON a.patient_id = p.patient_id\nJOIN doctors  d ON a.doctor_id  = d.doctor_id\nWHERE strftime('%Y', a.appointment_dt) = '2024'\nORDER BY a.appointment_dt DESC;",
+    "rows": 190,
+    "time_s": 3.4,
+    "error": ""
+  },
+  {
+    "no": 16,
+    "question": "What are the most common diagnoses?",
+    "status": "PASS",
+    "sql": "SELECT diagnosis, COUNT(*) AS frequency\nFROM treatments\nGROUP BY diagnosis\nORDER BY frequency DESC\nLIMIT 10;",
+    "rows": 10,
+    "time_s": 3.13,
+    "error": ""
+  },
+  {
+    "no": 17,
+    "question": "What is the total cost of all treatments?",
+    "status": "PASS",
+    "sql": "SELECT ROUND(SUM(cost), 2) AS total_treatment_cost FROM treatments;",
+    "rows": 1,
+    "time_s": 3.04,
+    "error": ""
+  },
+  {
+    "no": 18,
+    "question": "What is the total revenue collected by the clinic?",
+    "status": "PASS",
+    "sql": "SELECT ROUND(SUM(total_amount), 2) AS total_revenue FROM invoices WHERE payment_status = 'Paid';",
+    "rows": 1,
+    "time_s": 3.04,
+    "error": ""
+  },
+  {
+    "no": 19,
+    "question": "Show revenue by payment method",
+    "status": "PASS",
+    "sql": "SELECT payment_method, COUNT(*) AS transactions, ROUND(SUM(total_amount), 2) AS revenue\nFROM invoices\nWHERE payment_status = 'Paid'\nGROUP BY payment_method\nORDER BY revenue DESC;",
+    "rows": 5,
+    "time_s": 3.13,
+    "error": ""
+  },
+  {
+    "no": 20,
+    "question": "How many invoices are pending payment?",
+    "status": "PASS",
+    "sql": "SELECT COUNT(*) AS pending_invoices FROM invoices WHERE payment_status = 'Pending';",
+    "rows": 1,
+    "time_s": 3.2,
+    "error": ""
+  }
+]
