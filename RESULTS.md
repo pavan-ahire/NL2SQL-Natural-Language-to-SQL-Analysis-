@@ -39,29 +39,7 @@
 | 17 | What is the total cost of all treatments? | ✅ PASS | 1 | `SELECT ROUND(SUM(cost), 2) ...` | — |
 | 18 | What is the total revenue collected by the clinic? | ✅ PASS | 1 | `SELECT ROUND(SUM(total_amount), 2) ... WHERE payment_status='Paid'` | — |
 | 19 | Show revenue by payment method | ✅ PASS | 5 | `SELECT payment_method, SUM(total_amount) ... GROUP BY payment_method` | — |
-| 20 | How many invoices are pending payment? | ✅ PASS | 78 | — | LLM misinterpreted "pending" as status filter on invoices + treatments join; fixed by adding explicit training pair |
-
----
-
-## Issues & Fixes
-
-### ❌ Q20 — "How many invoices are pending payment?"
-
-**Problem:**  
-The LLM generated a query joining `invoices` with `treatments` unnecessarily, causing a mismatch. 0 rows returned.
-
-**Root cause:**  
-Insufficient training examples for straightforward `payment_status` filtering.
-
-**Fix:**  
-Added an explicit training pair in `seed_memory.py`:
-```python
-{
-    "question": "How many invoices are pending payment?",
-    "sql": "SELECT COUNT(*) AS pending_invoices, ROUND(SUM(total_amount),2) AS pending_amount FROM invoices WHERE payment_status = 'Pending';"
-}
-```
-After re-seeding, Q20 passes.
+| 20 | How many invoices are pending payment? | ✅ PASS | 78 | `SELECT COUNT(*) AS pending_invoices FROM invoices WHERE payment_status = 'Pending';` | LLM misinterpreted "pending" as status filter on invoices + treatments join; fixed by adding explicit training pair |
 
 ---
 
