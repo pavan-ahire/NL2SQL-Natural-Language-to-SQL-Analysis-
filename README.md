@@ -36,6 +36,14 @@ Instead of writing SQL manually, users can simply ask:
 * 🔹 Error handling & edge-case management
 
 ---
+---
+
+## 🎬 Demo
+<img width="1919" height="698" alt="image" src="https://github.com/user-attachments/assets/8c84cf24-1da9-4092-85f7-bb537b593eb6" />
+<img width="1488" height="789" alt="image" src="https://github.com/user-attachments/assets/0f4a4572-64fd-4cf4-a394-edc3d25976c3" />
+<img width="1575" height="343" alt="image" src="https://github.com/user-attachments/assets/dea66770-f572-4d12-9763-e141ab22c82e" />
+
+---
 
 ## 🏗️ System Architecture
 
